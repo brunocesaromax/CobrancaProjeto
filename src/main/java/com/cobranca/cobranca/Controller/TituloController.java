@@ -6,8 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class TituloController {
 
-    @RequestMapping("/titulos/novo")
+   @RequestMapping("/titulos/novo")
     public String novo(){
         return "CadastroTitulo"; // sem ".html" , para mudancas futuras , ex: JSP
     }
 }
+
