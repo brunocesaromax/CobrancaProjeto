@@ -1,5 +1,8 @@
 package com.cobranca.cobranca.Model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
@@ -14,8 +17,10 @@ public class Titulo {
     private String descricao;
 
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dataVencimento;
 
+    @NumberFormat(pattern = "#,##0.00")// formatando de . para virgula ,
     private Double valor;
 
     @Enumerated(EnumType.STRING)
