@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/titulos")
@@ -20,10 +21,14 @@ public class TituloController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String salvar(Titulo titulo) { //Spring transforma o corpo que vem para o servidor no objeto esperado , gracas ao mesmo nome de atributos na view
+    public ModelAndView salvar(Titulo titulo) { //Spring transforma o corpo que vem para o servidor no objeto esperado , gracas ao mesmo nome de atributos na view
 
         iTitulo.save(titulo);
-        return "CadastroTitulo";
+
+        ModelAndView modelAndView= new ModelAndView("CadastroTitulo");
+        modelAndView.addObject("mensagem" , "Título salvo com sucesso!");
+
+        return modelAndView;
     }
 
 }
