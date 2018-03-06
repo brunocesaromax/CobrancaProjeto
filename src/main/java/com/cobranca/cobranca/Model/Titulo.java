@@ -66,6 +66,10 @@ public class Titulo {
         this.status = status;
     }
 
+    public boolean isPendente(){ // Se titulo for pendente usará o label-danger do bootstrap caso contrário será usado o label-success
+        return this.status.equals(StatusTitulo.PENDENTE);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

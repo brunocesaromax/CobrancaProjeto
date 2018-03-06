@@ -36,9 +36,25 @@
             </thead>
 
             <tbody>
+            <tr th:each="titulo : ${titulos}">
+                <td class="text-center" th:text="${titulo.id}"></td>
+                <td th:text="${titulo.descricao}"></td>
+                <!--Apresentar a data no formato escolhido na aplicação (dd/MM/yyyy) -->
+                <td class="text-center" th:text="${{titulo.dataVencimento}}"></td>
+                <!--Apresentar o valor no formato escolhido pela aplicação com o {{}} do tymeleaf e também concatenando o R$ com o || -->
+                <td class="text-right" th:text="|R$ ${{titulo.valor}}|"></td>
+                <td class="text-center">
+                    <!--Mostrar label com o status do título conforme seu status recebido ->verde e pendente->vermelho, label -> bootstrap -->
+                    <span class="label" th:text="${titulo.status.descricao}"
+                    th:classappend="${titulo.pendente ? 'label-danger' : 'label-success'}"></span> <!--Fazer o append de outra classe com o thymeleaf de acordo com o status do título -->
+                </td>
+                <td class="text-center">
+
+                </td>
+            </tr>
 
             <tr>
-                <td colspan="6">Nenhum título foi encontrado.</td>
+                <td colspan="6" th:if="${#lists.isEmpty(titulos)}">Nenhum título foi encontrado.</td>
             </tr>
 
             </tbody>

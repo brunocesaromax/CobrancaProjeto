@@ -3,7 +3,6 @@
 }
 
 .panel-default{
-
     margin-left: 10px;
     margin-right: 10px;
 }
@@ -20,4 +19,5 @@
 
 .aw-titulo-panel{
     float: left;
+    padding-top: 2px;
 }
