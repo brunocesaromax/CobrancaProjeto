@@ -1,0 +1,1 @@
+https://mydevgeek.com/spring-boot-rest-web-service-part-1-spring-data-mysql/

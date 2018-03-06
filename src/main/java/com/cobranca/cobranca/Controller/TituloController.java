@@ -39,6 +39,12 @@ public class TituloController {
         return modelAndView;
     }
 
+    @RequestMapping
+    public String pesquisar(){
+        return "PesquisaTitulos";
+    }
+
+
     @ModelAttribute("todosStatusTitulo") // Atributos vai estar disponível em todas as views sem precisar replicar código
     public List<StatusTitulo> todosStatusTitulo(){
         return Arrays.asList(StatusTitulo.values());
