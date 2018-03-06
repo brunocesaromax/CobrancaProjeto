@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.utraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Cobrança</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+</head>
+
+<body>
+
+<!--Inserindo nesse trecho o cabecalho no layout padrão -->
+<header layout:include="Cabecalho"></header>
+
+
+<!--Aonde for inserido esse fragmento nos outros templates será injetado dentro da seção tudo que está neste layout padrão
+Aproveitando assim código dos templates-->
+<section layout:fragment="conteudo">
+    <p>Conteúdo principal</p>
+</section>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+</body>
+</html>
