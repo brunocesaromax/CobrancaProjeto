@@ -11,6 +11,8 @@
 </head>
 
 <section layout:fragment="conteudo">
+    <div layout:include="MensagensGeral"></div>
+
     <div class="panel panel-default">
         <div class="panel-heading">
             <!--Clearfix concerta a pagina quando se usa o float do css, classe do Bootstrap -->
@@ -49,6 +51,15 @@
                     th:classappend="${titulo.pendente ? 'label-danger' : 'label-success'}"></span> <!--Fazer o append de outra classe com o thymeleaf de acordo com o status do título -->
                 </td>
                 <td class="text-center">
+                    <a class="btn btn-link btn-xs" th:href="@{/titulos/{id}(id=${titulo.id})}"> <!--@ do thymeleaf serve para montar links, podendo definir variáveis, URL dinâmica-->
+                        <span class="glyphicon glyphicon-pencil"></span> <!-- botão do bootstrap lápis-->
+                    </a>
+
+                    <a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModal"
+                       th:attr="data-codigo=${titulo.id}, data-descricao=${titulo.descricao}"> <!--@ do thymeleaf serve para montar links, podendo definir variáveis, URL dinâmica-->
+
+                        <span class="glyphicon glyphicon-remove"></span> <!-- botão do bootstrap lápis-->
+                    </a>
 
                 </td>
             </tr>
@@ -60,6 +71,9 @@
             </tbody>
         </table>
     </div>
+
+    <div layout:include="DialogoConfirmacaoExclusao"></div>
+
 </section>
 
 </html>

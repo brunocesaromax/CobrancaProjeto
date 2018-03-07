@@ -12,7 +12,8 @@
 
     <form class="form-horizontal" method="post" action="/titulos" th:object="${titulo}">
 
-        <div layout:include="Mensagens"></div>
+        <div layout:include="MensagensGeral"></div>
+        <div layout:include="MensagensErro"></div>
 
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -23,6 +24,9 @@
             </div>
 
             <div class="panel-body">
+
+                <input type="hidden" th:field="*{id}"/> <!--Campo oculto, para salvar ou atualizar no banco -->
+
                 <div class="form-group" th:classappend="${#fields.hasErrors('descricao')} ? has-error"> <!--Classe do Bootstrap para apresentar erro-->
                     <label for="descricao" class="col-sm-2 control-label">Descrição</label>
                     <div class="col-sm-4">

@@ -4,15 +4,9 @@
       xmlns:layout="http://www.utraq.net.nz/thymeleaf/layout"
       layout:decorator="LayoutPadrao">
 
-
 <div class="alert alert-success" th:if="${!#strings.isEmpty(mensagem)}">
     <span th:text="${mensagem}">Título salvo com sucesso!!!</span>
 </div>
 
-<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}"> <!--Mostrando erro para o usuário através das validações feitas no Objeto Títutlo -->
-    <div th:each="err : ${#fields.detailedErrors()}">
-        <span th:text="${err.getMessage()}"></span>
-    </div>
-</div>
 
 </html>
