@@ -63,6 +63,8 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- Juntamente com o LiveReload(Extensão do Google Chrome) se ganha produtividade no desenvolvimento WEB-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
