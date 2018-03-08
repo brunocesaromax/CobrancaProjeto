@@ -7,7 +7,7 @@ $('#confirmacaoExclusaoModal').on('show.bs.modal',function (event) {
 
     var modal = $(this);
     var form = modal.find('form');
-    var action = form.attr('action');
+    var action = form.data('url-base'); //Mudança de action para data 'url-base' para não duplicar o id na chamada do excluir
 
     if (!strEndsWith(action,'/')){// se nao terminar com '/' concatena com a mesma
         action += '/';
