@@ -3,8 +3,8 @@ package com.cobranca.cobranca.Controller;
 import com.cobranca.cobranca.Dao.ITitulo;
 import com.cobranca.cobranca.Model.StatusTitulo;
 import com.cobranca.cobranca.Model.Titulo;
+import com.cobranca.cobranca.Service.CadatroTituloService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
@@ -27,6 +27,9 @@ public class TituloController {
     @Autowired
     private ITitulo iTitulo;
 
+    @Autowired
+    private CadatroTituloService cadatroTituloService;
+
     @RequestMapping("/novo")
     public ModelAndView novo() {
 
@@ -43,12 +46,12 @@ public class TituloController {
         }
 
         try {
-            iTitulo.save(titulo);
+            cadatroTituloService.salvar(titulo);
             attributes.addFlashAttribute("mensagem", "Título salvo com sucesso!");
             return "redirect:/titulos/novo"; // redirect é uma nova requisição
 
-        } catch (DataIntegrityViolationException e) { // Capturar erro quando data informada mesmo com o calendário for inválida, e retornar erro para o usuário
-            errors.rejectValue("dataVencimento", null, "Formato de data inválido");
+        } catch (IllegalArgumentException e) { // Capturar erro quando data informada mesmo com o calendário for inválida, e retornar erro para o usuário
+            errors.rejectValue("dataVencimento", null, e.getMessage());
             return CADASTRO_VIEW;
         }
     }
@@ -77,11 +80,10 @@ public class TituloController {
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public String excluir(@PathVariable Long id, RedirectAttributes attributes) {
 
-        iTitulo.delete(id);
+        cadatroTituloService.excluir(id);
+        //iTitulo.delete(id);
         attributes.addFlashAttribute("mensagem", "Título excluído com sucesso!");
-
         return "redirect:/titulos";
-
     }
 
     @ModelAttribute("todosStatusTitulo")
