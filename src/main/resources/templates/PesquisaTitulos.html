@@ -51,13 +51,15 @@
                     th:classappend="${titulo.pendente ? 'label-danger' : 'label-success'}"></span> <!--Fazer o append de outra classe com o thymeleaf de acordo com o status do título -->
                 </td>
                 <td class="text-center">
-                    <a class="btn btn-link btn-xs" th:href="@{/titulos/{id}(id=${titulo.id})}"> <!--@ do thymeleaf serve para montar links, podendo definir variáveis, URL dinâmica-->
+                    <a class="btn btn-link btn-xs" th:href="@{/titulos/{id}(id=${titulo.id})}"
+                       title="Editar" rel="tootip" data-placement="top"> <!--@ do thymeleaf serve para montar links, podendo definir variáveis, URL dinâmica-->
                         <span class="glyphicon glyphicon-pencil"></span> <!-- botão do bootstrap lápis-->
                     </a>
 
+                    <!--@ do thymeleaf serve para montar links, podendo definir variáveis, URL dinâmica-->
                     <a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModal"
-                       th:attr="data-codigo=${titulo.id}, data-descricao=${titulo.descricao}"> <!--@ do thymeleaf serve para montar links, podendo definir variáveis, URL dinâmica-->
-
+                       th:attr="data-codigo=${titulo.id}, data-descricao=${titulo.descricao}"
+                       title="Excluir" rel="tootip" data-placement="top"> <!-- Utilizando recurso tootip do bootstrap com js para aparecer referência em cima do excluir e do editar -->
                         <span class="glyphicon glyphicon-remove"></span> <!-- botão do bootstrap lápis-->
                     </a>
 
