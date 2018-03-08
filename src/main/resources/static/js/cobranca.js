@@ -23,6 +23,9 @@ function strEndsWith(str, suffix) {
     return str.match(suffix + "$") == suffix;
 }
 
+//Ao carregar a pág
 $(function () { // Usando Jquery para aparecer descrição dos botões de excluir e editar
     $('[rel="tooltip"]').tooltip();
+    // Utilizando maskmoney do jquery para formatar campo valor no cadastro de titulo de acordo com as mascáras escolhidas
+    $('.js-currency').maskMoney({prefix:'R$ ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
 });
