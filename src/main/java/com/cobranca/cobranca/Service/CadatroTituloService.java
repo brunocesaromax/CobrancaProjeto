@@ -2,11 +2,14 @@ package com.cobranca.cobranca.Service;
 
 
 import com.cobranca.cobranca.Dao.ITitulo;
+import com.cobranca.cobranca.Dao.TituloFilter;
 import com.cobranca.cobranca.Model.StatusTitulo;
 import com.cobranca.cobranca.Model.Titulo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 //@Component , deve ser no mínimo @Component para pode ser injetada em outras partes do projeto
 @Service // Transformando essa classe em um componente para o spring
@@ -37,5 +40,11 @@ public class CadatroTituloService {
         iTitulo.save(tituloBD);
 
         return tituloBD.getStatus().getDescricao();
+    }
+
+    public List<Titulo> filtrar(TituloFilter filtro){
+
+        String descricao = filtro.getDescricao() == null ? "%": filtro.getDescricao();
+        return iTitulo.findByDescricaoContaining(descricao);
     }
 }

@@ -1,6 +1,6 @@
 package com.cobranca.cobranca.Controller;
 
-import com.cobranca.cobranca.Dao.ITitulo;
+import com.cobranca.cobranca.Dao.TituloFilter;
 import com.cobranca.cobranca.Model.StatusTitulo;
 import com.cobranca.cobranca.Model.Titulo;
 import com.cobranca.cobranca.Service.CadatroTituloService;
@@ -20,9 +20,6 @@ import java.util.List;
 public class TituloController {
 
     public static final String CADASTRO_VIEW = "CadastroTitulo";
-
-    @Autowired
-    private ITitulo iTitulo;
 
     @Autowired
     private CadatroTituloService cadatroTituloService;
@@ -53,17 +50,16 @@ public class TituloController {
         }
     }
 
+    //public ModelAndView pesquisar(@RequestParam(defaultValue = "%") String descricao) [Poderia ser feito desta maneira]
     @RequestMapping
-    public ModelAndView pesquisar() {
+    public ModelAndView pesquisar(@ModelAttribute("filtro") TituloFilter filtro) { //Criando objeto em tempo de execução pelo spring para evitar de passar para a view um objeto null
 
-        List<Titulo> titulos = iTitulo.findAll(); //todo: trocar posteriormente
+        List<Titulo> titulosFiltrados = cadatroTituloService.filtrar(filtro);
         ModelAndView mv = new ModelAndView("PesquisaTitulos");
-        mv.addObject("titulos", titulos);
+        mv.addObject("titulos", titulosFiltrados);
         return mv;
     }
 
-    // Por causa da aplicação estar usando JPA Repository,
-    // o próprio spring consegue relacionar o id a um objeto titulo específico, não necessitando de buscar esse objeto no banco
     @RequestMapping("{id}")
     public ModelAndView edicao(@PathVariable("id") Titulo titulo) {
 
@@ -83,8 +79,9 @@ public class TituloController {
         return "redirect:/titulos";
     }
 
-    @RequestMapping(value = "{id}/receber",method = RequestMethod.PUT)
-    public @ResponseBody String receber(@PathVariable Long id) { // ResponseBody , quer retornar apenas a string como resposta não uma view
+    @RequestMapping(value = "{id}/receber", method = RequestMethod.PUT)
+    public @ResponseBody
+    String receber(@PathVariable Long id) { // ResponseBody , quer retornar apenas a string como resposta não uma view
 
         return cadatroTituloService.receber(id);// Retornando Status RECEBIDO
     }
