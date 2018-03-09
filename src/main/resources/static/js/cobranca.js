@@ -35,7 +35,35 @@ $(function () { // Usando Jquery para aparecer descrição dos botões de exclui
         var botaoReceber = $(event.currentTarget);
         var urlReceber = botaoReceber.attr('href'); // pegando url para usar ajax
 
-        console.log('urlReceber',urlReceber);
+        var response = $.ajax({ // função do jquery para atualizar no server pegando a url e utilizando requisição PUT
+            url:urlReceber,
+            type:'PUT'
+        });
+
+        response.done(function (e) {
+            var idTitulo = botaoReceber.data('codigo');
+            $('[data-role=' + idTitulo + ']').html('<span class = "label label-success">'+e+'</span>'); // Alterando via js o status do título na view
+            botaoReceber.hide(); // sumir com botão na view
+        });
+
+        response.fail(function (e) {
+            console.log(e);
+            alert('Erro ao receber cobrança');
+        });
 
     });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+

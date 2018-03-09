@@ -2,6 +2,7 @@ package com.cobranca.cobranca.Service;
 
 
 import com.cobranca.cobranca.Dao.ITitulo;
+import com.cobranca.cobranca.Model.StatusTitulo;
 import com.cobranca.cobranca.Model.Titulo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -27,5 +28,14 @@ public class CadatroTituloService {
 
     public void excluir(Long id) {
         iTitulo.delete(id);
+    }
+
+    public String receber(Long id) { // atualizando status do titulo encontrado
+
+        Titulo tituloBD= iTitulo.findOne(id);
+        tituloBD.setStatus(StatusTitulo.RECEBIDO);
+        iTitulo.save(tituloBD);
+
+        return tituloBD.getStatus().getDescricao();
     }
 }
