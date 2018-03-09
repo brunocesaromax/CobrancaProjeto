@@ -18,7 +18,7 @@
             <!--Clearfix concerta a pagina quando se usa o float do css, classe do Bootstrap -->
             <div class="clearfix">
                 <h1 class="panel-title aw-titulo-panel">Pesquisa de títulos</h1>
-                <a class="btn btn-link aw-link-panel" href="/titulos/novo">Novo título</a>
+                <a class="btn btn-link aw-link-panel" th:href="@{/titulos/novo}">Novo título</a>
             </div>
         </div>
     </div>
@@ -26,12 +26,12 @@
 
     <div class="panel-body">
 
-        <form method="GET" class="form-horizontal" th:object="${filtro}">
+        <form method="GET" class="form-horizontal" th:action="@{/titulos}" th:object="${filtro}">
             <div class="form-group">
                 <div class="col-sm-4">
                     <div class="input-group">
                         <input class="form-control" placeholder="Qual título você está procurando?"
-                               autofocus="autofocus" th:field="*{descricao}"></input>
+                               autofocus="autofocus" th:field="*{descricao}"/>
                         <span class="input-group-btn">
 	   							<button type="submit" class="btn btn-default">
 	   								<i class="glyphicon glyphicon-search"></i>
@@ -42,74 +42,77 @@
             </div>
         </form>
 
-        <table class="table table-bordered table-striped">
-            <thead>
-            <tr>
-                <th class="text-center col-md-1">#</th>
-                <th>Descrição</th>
-                <th class="text-center col-md-2">Data de vencimento</th>
-                <th class="text-right col-md-2">Valor</th>
-                <th class="text-center col-md-2">Status</th>
-                <th class="col-md-1"></th>
-            </tr>
-            </thead>
+        <!--Deixar a tabela responsiva para telas menores-->
+        <div class="table-resposive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th class="text-center col-md-1">#</th>
+                    <th>Descrição</th>
+                    <th class="text-center col-md-2">Data de vencimento</th>
+                    <th class="text-right col-md-2">Valor</th>
+                    <th class="text-center col-md-2">Status</th>
+                    <th class="col-md-1"></th>
+                </tr>
+                </thead>
 
-            <tbody>
-            <tr th:each="titulo : ${titulos}">
+                <tbody>
+                <tr th:each="titulo : ${titulos}">
 
-                <td class="text-center" th:text="${titulo.id}"></td>
+                    <td class="text-center" th:text="${titulo.id}"></td>
 
-                <!--Apresentar a data no formato escolhido na aplicação (dd/MM/yyyy) -->
-                <td th:text="${titulo.descricao}"></td>
+                    <!--Apresentar a data no formato escolhido na aplicação (dd/MM/yyyy) -->
+                    <td th:text="${titulo.descricao}"></td>
 
-                <!--Apresentar o valor no formato escolhido pela aplicação com o {{}} do tymeleaf e também concatenando o R$ com o || -->
-                <td class="text-center" th:text="${{titulo.dataVencimento}}"></td>
+                    <!--Apresentar o valor no formato escolhido pela aplicação com o {{}} do tymeleaf e também concatenando o R$ com o || -->
+                    <td class="text-center" th:text="${{titulo.dataVencimento}}"></td>
 
-                <!-- Identificando esse td pelo id do titulo para conseguir atualizar a view via ajax-->
-                <td class="text-right" th:text="|R$ ${{titulo.valor}}|"></td>
+                    <!-- Identificando esse td pelo id do titulo para conseguir atualizar a view via ajax-->
+                    <td class="text-right" th:text="|R$ ${{titulo.valor}}|"></td>
 
-                <td class="text-center" th:attr="data-role=${titulo.id}">
-                    <!--Mostrar label com o status do título conforme seu status recebido ->verde e pendente->vermelho, label -> bootstrap -->
-                    <span class="label" th:text="${titulo.status.descricao}"
-                          th:classappend="${titulo.pendente ? 'label-danger' : 'label-success'}"></span>
-                    <!--Fazer o append de outra classe com o thymeleaf de acordo com o status do título -->
-                </td>
+                    <td class="text-center" th:attr="data-role=${titulo.id}">
+                        <!--Mostrar label com o status do título conforme seu status recebido ->verde e pendente->vermelho, label -> bootstrap -->
+                        <span class="label" th:text="${titulo.status.descricao}"
+                              th:classappend="${titulo.pendente ? 'label-danger' : 'label-success'}"></span>
+                        <!--Fazer o append de outra classe com o thymeleaf de acordo com o status do título -->
+                    </td>
 
-                <td class="text-center">
-                    <a class="btn btn-link btn-xs" th:href="@{/titulos/{id}(id=${titulo.id})}"
-                       title="Editar" rel="tootip" data-placement="top">
-                        <span class="glyphicon glyphicon-pencil"></span> <!-- botão do bootstrap lápis-->
-                    </a>
-                    <!--@ do thymeleaf serve para montar links, podendo definir variáveis, URL dinâmica-->
+                    <td class="text-center">
+                        <a class="btn btn-link btn-xs" th:href="@{/titulos/{id}(id=${titulo.id})}"
+                           title="Editar" rel="tootip" data-placement="top">
+                            <span class="glyphicon glyphicon-pencil"></span> <!-- botão do bootstrap lápis-->
+                        </a>
+                        <!--@ do thymeleaf serve para montar links, podendo definir variáveis, URL dinâmica-->
 
-                    <!--@ do thymeleaf serve para montar links, podendo definir variáveis, URL dinâmica-->
-                    <a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModal"
-                       th:attr="data-codigo=${titulo.id}, data-descricao=${titulo.descricao}"
-                       title="Excluir" rel="tootip" data-placement="top">
-                        <!-- Utilizando recurso tootip do bootstrap com js para aparecer referência em cima do excluir e do editar -->
-                        <span class="glyphicon glyphicon-remove"></span> <!-- botão do bootstrap lápis-->
-                    </a>
+                        <!--@ do thymeleaf serve para montar links, podendo definir variáveis, URL dinâmica-->
+                        <a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModal"
+                           th:attr="data-codigo=${titulo.id}, data-descricao=${titulo.descricao}"
+                           title="Excluir" rel="tootip" data-placement="top">
+                            <!-- Utilizando recurso tootip do bootstrap com js para aparecer referência em cima do excluir e do editar -->
+                            <span class="glyphicon glyphicon-remove"></span> <!-- botão do bootstrap lápis-->
+                        </a>
 
-                    <a class="btn btn-link btn-xs js-atualizar-status"
-                       th:if="${titulo.pendente}"
-                       th:href="@{/titulos/{id}/receber(id=${titulo.id})}"
-                       title="Receber"
-                       rel="tooltip" data-placement="top"
-                       th:attr="data-codigo=${titulo.id}">
+                        <a class="btn btn-link btn-xs js-atualizar-status"
+                           th:if="${titulo.pendente}"
+                           th:href="@{/titulos/{id}/receber(id=${titulo.id})}"
+                           title="Receber"
+                           rel="tooltip" data-placement="top"
+                           th:attr="data-codigo=${titulo.id}">
 
-                        <span class="glyphicon glyphicon-check"></span> <!-- botão do bootstrap check-->
-                    </a>
+                            <span class="glyphicon glyphicon-check"></span> <!-- botão do bootstrap check-->
+                        </a>
 
-                </td>
+                    </td>
 
-            </tr>
+                </tr>
 
-            <tr>
-                <td colspan="6" th:if="${#lists.isEmpty(titulos)}">Nenhum título foi encontrado.</td>
-            </tr>
+                <tr>
+                    <td colspan="6" th:if="${#lists.isEmpty(titulos)}">Nenhum título foi encontrado.</td>
+                </tr>
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div layout:include="DialogoConfirmacaoExclusao"></div>

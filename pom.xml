@@ -72,6 +72,7 @@
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}</finalName> <!-- Gerar nome do .war com o nome do projeto-->
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
