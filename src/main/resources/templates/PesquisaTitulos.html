@@ -63,6 +63,11 @@
                         <span class="glyphicon glyphicon-remove"></span> <!-- botão do bootstrap lápis-->
                     </a>
 
+                    <a class="btn btn-link btn-xs js-atualizar-status" th:if="${titulo.pendente}"
+                       th:href="@{/titulos/{id}/receber(id=${titulo.id})}" title="Receber" rel="tooltip" data-placement="top">
+                        <span class="glyphicon glyphicon-check"></span> <!-- botão do bootstrap check-->
+                    </a>
+
                 </td>
             </tr>
 

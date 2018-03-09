@@ -81,10 +81,15 @@ public class TituloController {
     public String excluir(@PathVariable Long id, RedirectAttributes attributes) {
 
         cadatroTituloService.excluir(id);
-        //iTitulo.delete(id);
+        //iTitulo.delete(id); passado para a camada de serviço
         attributes.addFlashAttribute("mensagem", "Título excluído com sucesso!");
         return "redirect:/titulos";
     }
+
+    /*@RequestMapping(value = "{id}")
+    public void receber(@PathVariable Long id, RedirectAttributes attributes) {
+
+    }*/
 
     @ModelAttribute("todosStatusTitulo")
     // Atributos vai estar disponível em todas as views sem precisar replicar código

@@ -28,4 +28,14 @@ $(function () { // Usando Jquery para aparecer descrição dos botões de exclui
     $('[rel="tooltip"]').tooltip();
     // Utilizando maskmoney do jquery para formatar campo valor no cadastro de titulo de acordo com as mascáras escolhidas
     $('.js-currency').maskMoney({prefix:'R$ ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
+
+    $('.js-atualizar-status').on('click',function (event){
+        event.preventDefault(); // Parar o comportamento do link referenciado em Pesquisa titulos no botão de receber
+
+        var botaoReceber = $(event.currentTarget);
+        var urlReceber = botaoReceber.attr('href'); // pegando url para usar ajax
+
+        console.log('urlReceber',urlReceber);
+
+    });
 });
