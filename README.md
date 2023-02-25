@@ -4,8 +4,6 @@
 
 # Sobre o projeto
 
-https://cobranca-app.herokuapp.com/
-
 Cobrança é uma aplicação web do tipo Server Side Rendering (SSR) construída durante o acompanhamento do curso __Começando com Spring MVC__ da Algaworks.
 
 A aplicação consiste no gerenciamento de cobranças de títulos (Luz, Gás, Condomínio, etc).
